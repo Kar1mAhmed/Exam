@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Registration</title>
+  <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}" />
+</head>
+
+<body>
+
+  <div class="container text-left mt-6">
+    <div style="display: flex; align-items:center; width: 100%; justify-content:space-between; flex-direction: column;" class="hello">
+      <h1 style="color: blue;">Ideas Dashboard</h1>
+    </div>
+
+
+
+
+    <div class="row mt-5">
+      <div class="col-lg-6">
+        <h1>Registration</h1>
+        <br>
+        <form action="{% url 'app1:register' %}" method="POST" class="d-flex flex-column gap-3 ">
+          {% csrf_token %}
+          <!-- Name Input > type :"text" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="first_name" class="col-sm-2 col-form-label"> First name : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="text" name="first_name" class="form-control" id="first_name">
+            </div>
+          </div>
+          <!-- Name Input > type :"text" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="last_name" class="col-sm-2 col-form-label"> Last name : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="text" name="last_name" class="form-control" id="last_name">
+            </div>
+          </div>
+          <!-- email Input > type :type="email" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="inputEmail3" class="col-sm-2 col-form-label"> Email : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="email" name="email" class="form-control" id="email">
+            </div>
+          </div>
+          <!-- email  password Input > type :"password" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="password1" class="col-sm-2 col-form-label"> Password : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="password" name="password1" class="form-control" id="password1">
+            </div>
+          </div>
+
+          <!-- confirm email  password Input > type :"password" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="password2" class="col-sm-2 col-form-label"> Confirm Password : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="password" name="password2" class="form-control" id="password2">
+            </div>
+          </div>
+          <!-- {{registration_form}} -->
+          <button style="width: fit-content;
+          box-shadow: 2px 3px 0px 1px rgba(0, 0, 0, 1)
+          , 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+          border: 2px solid black;" type="submit" class="btn btn-outline-dark mt-3"> submit</button>
+        </form>
+
+      </div>
+      <div class="col-lg-6">
+        <h1>Log in </h1>
+        <br>
+        <form action="{% url 'app1:login' %}" method="POST" class="d-flex flex-column gap-3 ">
+          {% csrf_token %}
+          <!-- email Input > type :type="email" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="inputEmail3" class="col-sm-2 col-form-label"> Email : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="email" name="email" class="form-control" id="email">
+            </div>
+          </div>
+          <!-- email  password Input > type :"password" -->
+          <div class="d-flex align-items-center gap-2">
+            <label for="password1" class="col-sm-2 col-form-label"> Password : </label>
+            <div style="flex: 1.4" class="col-sm-4">
+              <input required type="password" name="password1" class="form-control" id="password1">
+            </div>
+          </div>
+
+          <!-- {{login_form}} -->
+          <button style="width: fit-content;
+            box-shadow: 2px 3px 0px 1px rgba(0, 0, 0, 1)
+            , 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            border: 2px solid black;" type="submit" class="btn btn-outline-dark btn-shadow mt-3"> submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

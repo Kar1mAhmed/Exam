@@ -1,0 +1,20 @@
+{% extends './base.html' %}
+{% block content %}
+<title>Edit </title>
+
+
+<body>
+  <div class="ml-3">
+    <h1 class="mb-5">{{user.first_name}} ideas: </h1>
+
+    {% for idea in ideas %}
+    <p>{{idea.text}}</p>
+    <br>
+    <hr>
+    {% endfor %}
+  </div>
+</body>
+
+
+
+{% endblock content %}

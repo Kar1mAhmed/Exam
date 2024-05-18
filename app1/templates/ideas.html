@@ -1,0 +1,77 @@
+{% extends './base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dashboard </title>
+  <style>
+    .idea-form {
+      display: flex;
+      align-items: center;
+    }
+
+    .idea-form input {
+      margin-right: 10px;
+    }
+
+    .idea-form .btn {
+      margin-right: 10px;
+      width: 200px;
+      height: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container text-left mt-6">
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %} style="color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <br>
+    <br>
+
+    <div class="container mt-5 mb-5">
+      <form class="idea-form" action="{% url 'app1:add_idea' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" id="ideaInput" class="form-control" placeholder="Enter your idea" name="idea_text">
+        <button type="submit" class="btn btn-outline-secondary">Add Your Idea</button>
+        <a href="{% url 'app1:team' %}" class="ml-2">Join a team!</a>
+      </form>
+    </div>
+
+    <hr>
+
+
+    <div class="container mt-5">
+      {% for idea in ideas %}
+      <a href="{% url 'app1:user_ideas' pk=idea.user.id %}" class="card-link">{{idea.user.first_name}} says:</a>
+      <div class="card mt-2">
+        <div class="card-body">
+          <p>{{idea.text}}</p>
+          {% if idea.user.id == request.session.user_id %}
+          <div class="d-flex justify-content-end">
+            <a href="{% url 'app1:edit_idea' pk=idea.id %}" class="card-link mr-3">Edit</a>
+            <a href="{% url 'app1:delete_idea' pk=idea.id %}" class="card-link">Delete</a>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
+</body>
+
+</html>
+
+{% endblock content %}
